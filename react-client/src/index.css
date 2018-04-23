@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #ddff99;
+  color: #666600;
+}
+
+li {
+}
+
+li:hover {
+  background-color: #f9ff99;
+  border-bottom: #999900 1px solid;
+}
