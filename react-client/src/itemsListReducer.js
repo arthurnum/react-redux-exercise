@@ -1,14 +1,16 @@
+import { actionTypes } from './actions';
+
 const defaultState = {
   list: []
 };
 
 let itemsListReducer = function(state, action) {
   switch (action.type) {
-    case 'initial-load':
+    case actionTypes.INITIAL_LOAD:
       return {
         list: action.data.items
       }
-    case 'update-item':
+    case actionTypes.UPDATE_ITEM:
       return {
         list: updateItem(state.list, action.item)
       }
