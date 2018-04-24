@@ -1,15 +1,7 @@
+import * as api from './api';
+
 const counter = id => dispatch =>
-  fetch('/items', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({ id: id })
-  })
-  .then(res => {
-    return res.json()
-  })
+  api.post('/items', { id: id })
   .then(res => {
     if (res.status === 0) {
       let action = {
@@ -22,10 +14,7 @@ const counter = id => dispatch =>
 
 
 const getItems = () => dispatch =>
-  fetch('/items')
-  .then(res => {
-    return res.json();
-  })
+  api.get('/items')
   .then(res => {
     let action = {
       type: 'initial-load',
