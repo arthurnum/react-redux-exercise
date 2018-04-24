@@ -17,13 +17,15 @@ db.authenticate()
 const itemFields = {
   id: {
     type: Sequelize.INTEGER,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
   name: {
     type: Sequelize.STRING
   },
   count: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 };
 

@@ -23,15 +23,21 @@ app.get('/items', function (req, res) {
   });
 });
 
-app.post('/items', function (req, res) {
+app.put('/items', function (req, res) {
   db.item.findById(req.body.id).then(item => {
     item.count += 1;
-    item.save()
-        .then(item => {
-          res.json({ status: 0, item: item })
-        });
+    item.save().then(item => {
+      res.json({ status: 0, item: item })
+    });
   })
 });
+
+app.post('/items', function (req, res) {
+  let item = db.item.build({ name: req.body.name });
+  item.save().then(item => {
+    res.json({ status: 0, item: item })
+  })
+})
 
 
 app.listen(8080);

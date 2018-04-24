@@ -16,9 +16,16 @@ const post = (path, body) =>
     body: JSON.stringify(body)
   })
 
+const put = (path, body) =>
+  request(path, {
+    method: 'PUT',
+    headers: defaultHeaders,
+    body: JSON.stringify(body)
+  })
+
 const request = (path, options) =>
   fetch(path, options)
   .then(res => res.json())
 
 
-export { get, post }
+export { get, post, put }
