@@ -5,7 +5,7 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import ItemsList from './itemsList';
+import ItemsList from './components/itemsList';
 import itemsListReducer from './itemsListReducer';
 
 var store = createStore(
