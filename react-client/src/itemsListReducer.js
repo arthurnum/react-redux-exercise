@@ -25,13 +25,13 @@ let itemsListReducer = function(state, action) {
 
 function addItem(list, item) {
   list.push(item);
-  return [...list];
+  return list.slice();
 }
 
 function updateItem(list, item) {
   let index = list.findIndex((e, i) => { return e.id === item.id });
   list[index] = item;
-  return [...list];
+  return list.slice();
 }
 
 export default itemsListReducer;
