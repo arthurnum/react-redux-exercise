@@ -39,5 +39,10 @@ app.post('/items', function (req, res) {
   })
 })
 
+app.delete('/items', function (req, res) {
+  db.item.findById(req.params.id).then(item => {
+    console.log(item.get());
+  })
+})
 
 app.listen(8080);

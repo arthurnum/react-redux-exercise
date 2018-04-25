@@ -23,9 +23,16 @@ const put = (path, body) =>
     body: JSON.stringify(body)
   })
 
+const destroy = (path, params = {}) =>
+  request(path, {
+    method: 'DELETE',
+    headers: defaultHeaders,
+    params: params
+  })
+
 const request = (path, options) =>
   fetch(path, options)
   .then(res => res.json())
 
 
-export { get, post, put }
+export { get, post, put, destroy }
