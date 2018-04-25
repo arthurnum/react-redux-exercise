@@ -3,7 +3,8 @@ import * as api from './api';
 const actionTypes = {
   INITIAL_LOAD: 'initial-load',
   ADD_ITEM: 'add-item',
-  UPDATE_ITEM: 'update-item'
+  UPDATE_ITEM: 'update-item',
+  DELETE_ITEM: 'delete-item'
 }
 
 const getItems = () => dispatch =>
@@ -29,6 +30,19 @@ const addItem = name => dispatch => {
   })
 }
 
+const deleteItem = id => dispatch => {
+  api.destroy('/items?id=' + id)
+  .then(res => {
+    if (res.status === 0) {
+      let action = {
+        type: actionTypes.DELETE_ITEM,
+        item: res.item
+      };
+      return dispatch(action);
+    }
+  })
+}
+
 const counter = id => dispatch =>
   api.put('/items', { id: id })
   .then(res => {
@@ -42,4 +56,4 @@ const counter = id => dispatch =>
   })
 
 
-export { actionTypes, counter, getItems, addItem }
+export { actionTypes, counter, getItems, addItem, deleteItem }

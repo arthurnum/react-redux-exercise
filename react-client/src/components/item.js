@@ -13,6 +13,7 @@ class Item extends React.Component {
   }
 
   onDeleteClickCallback(e) {
+    this.props.itemDeleteCallback(this.props.item.id);
     e.preventDefault();
   }
 

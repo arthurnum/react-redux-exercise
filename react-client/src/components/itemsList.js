@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Item from './item';
 import ItemForm from './itemForm';
-import { counter, getItems, addItem } from '../actions';
+import { counter, getItems, addItem, deleteItem } from '../actions';
 
 class ItemsList extends React.Component {
   constructor(props) {
     super(props);
 
     this.itemClickCallback = this.itemClickCallback.bind(this);
+    this.itemDeleteCallback = this.itemDeleteCallback.bind(this);
     this.addItemClickCallback = this.addItemClickCallback.bind(this);
   }
 
@@ -20,6 +21,10 @@ class ItemsList extends React.Component {
     this.props.dispatch(counter(id));
   }
 
+  itemDeleteCallback(id) {
+    this.props.dispatch(deleteItem(id));
+  }
+
   addItemClickCallback(name) {
     if (name.length === 0) { return }
     this.props.dispatch(addItem(name));
@@ -29,7 +34,8 @@ class ItemsList extends React.Component {
     const items = this.props.list.map((item) =>
       <Item key={item.id}
             item={item}
-            itemClickCallback={this.itemClickCallback} />
+            itemClickCallback={this.itemClickCallback}
+            itemDeleteCallback={this.itemDeleteCallback} />
     );
 
     return (

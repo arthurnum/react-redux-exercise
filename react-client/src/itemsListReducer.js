@@ -18,6 +18,10 @@ let itemsListReducer = function(state, action) {
       return {
         list: updateItem(state.list, action.item)
       }
+    case actionTypes.DELETE_ITEM:
+      return {
+        list: deleteItem(state.list, action.item)
+      }
     default:
       return defaultState
   }
@@ -31,6 +35,12 @@ function addItem(list, item) {
 function updateItem(list, item) {
   let index = list.findIndex((e, i) => { return e.id === item.id });
   list[index] = item;
+  return list.slice();
+}
+
+function deleteItem(list, item) {
+  let index = list.findIndex((e, i) => { return e.id === item.id });
+  list.splice(index, 1);
   return list.slice();
 }
 

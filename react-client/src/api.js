@@ -23,11 +23,10 @@ const put = (path, body) =>
     body: JSON.stringify(body)
   })
 
-const destroy = (path, params = {}) =>
+const destroy = (path) =>
   request(path, {
     method: 'DELETE',
-    headers: defaultHeaders,
-    params: params
+    headers: defaultHeaders
   })
 
 const request = (path, options) =>

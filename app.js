@@ -40,8 +40,10 @@ app.post('/items', function (req, res) {
 })
 
 app.delete('/items', function (req, res) {
-  db.item.findById(req.params.id).then(item => {
-    console.log(item.get());
+  db.item.findById(req.query.id).then(item => {
+    item.destroy().then(() => {
+      res.json({ status: 0, item: item })
+    })
   })
 })
 
