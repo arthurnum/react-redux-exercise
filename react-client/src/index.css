@@ -1,8 +1,7 @@
 body {
   margin: 0;
-  padding: 2em;
   font-family: sans-serif;
-  background-color: #ddff99;
+  background-color: #536039;
   color: #666600;
 }
 
@@ -44,4 +43,16 @@ a {
 input {
   background-color: #f9ff99;
   color: inherit;
+}
+
+#root {
+  background-color: #ddff99;
+  padding: 2em;
+}
+
+.header, .footer {
+  padding: 1em;
+  height: 100px;
+  width: 100%;
+  background-color: #536039;
 }
