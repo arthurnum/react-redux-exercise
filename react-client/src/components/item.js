@@ -5,16 +5,24 @@ class Item extends React.Component {
     super(props);
 
     this.onClickCallback = this.onClickCallback.bind(this);
+    this.onDeleteClickCallback = this.onDeleteClickCallback.bind(this);
   }
 
   onClickCallback() {
     this.props.itemClickCallback(this.props.item.id);
   }
 
+  onDeleteClickCallback(e) {
+    e.preventDefault();
+  }
+
   render() {
     const item = this.props.item;
     return (
-      <li onClick={this.onClickCallback}>{item.name} -> {item.count}</li>
+      <li>
+        <span onClick={this.onClickCallback}>{item.name} -> {item.count}</span>
+        <a href="" onClick={this.onDeleteClickCallback}>delete</a>
+      </li>
     );
   }
 }

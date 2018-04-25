@@ -7,9 +7,41 @@ body {
 }
 
 li {
+  line-height: 1.5em;
+  width: 640px;
 }
 
 li:hover {
   background-color: #f9ff99;
   border-bottom: #999900 1px solid;
+}
+
+span {
+  padding-left: 0.2em;
+  padding-right: 0.5em;
+  float: left;
+  width: 240px;
+}
+
+span:hover {
+  padding-left: 0.5em;
+  cursor: pointer;
+}
+
+span:hover::after {
+  float: right;
+  content: 'increment';
+  font-size: 0.8em;
+  color: #99aaff;
+}
+
+a {
+  font-size: 0.8em;
+  color: #99aaff;
+  float: right;
+}
+
+input {
+  background-color: #f9ff99;
+  color: inherit;
 }
