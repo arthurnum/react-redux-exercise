@@ -1,10 +1,22 @@
 let Sequelize = require('sequelize');
 
-let db = new Sequelize('testreact', 'react', 'pass', {
-  host: 'localhost',
-  dialect: 'mysql',
-  port: 3306
-});
+const dbConfig = {
+  DB_NAME: 'testreact',
+  DB_USER: 'react',
+  DB_PASSWORD: 'pass',
+  DB_OPTIONS: {
+    host: 'localhost',
+    dialect: 'mysql',
+    port: 3306
+  }
+};
+
+let db = new Sequelize(
+  dbConfig.DB_NAME,
+  dbConfig.DB_USER,
+  dbConfig.DB_PASSWORD,
+  dbConfig.DB_OPTIONS
+);
 
 db.authenticate()
   .then(() => {
