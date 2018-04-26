@@ -22,7 +22,7 @@ class Item extends React.Component {
     return (
       <li>
         <span onClick={this.onClickCallback}>{item.name} -> {item.count}</span>
-        <a href="" onClick={this.onDeleteClickCallback}>delete</a>
+        <a className="right" href="" onClick={this.onDeleteClickCallback}>delete</a>
       </li>
     );
   }

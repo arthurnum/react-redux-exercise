@@ -37,6 +37,9 @@ span:hover::after {
 a {
   font-size: 0.8em;
   color: #99aaff;
+}
+
+.right {
   float: right;
 }
 
@@ -51,8 +54,15 @@ input {
 }
 
 .header, .footer {
-  padding: 1em;
   height: 100px;
   width: 100%;
   background-color: #536039;
+}
+
+.pagination {
+  padding-bottom: 1em;
+}
+
+.pagination a {
+  margin-left: 2em;
 }

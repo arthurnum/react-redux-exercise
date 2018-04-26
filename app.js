@@ -16,10 +16,19 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'react-client/build', 'index.html'));
 });
 
+
+// Items api
+
 app.get('/items', function (req, res) {
-  db.item.findAll().then(items => {
+  let page = parseInt(req.query.page || 1);
+  if (page < 1) { page = 1 }
+  let options = {
+    limit: 4,
+    offset: (page - 1) * 4
+  };
+  db.item.findAll(options).then(items => {
     let result = items.map(i => { return i.get(); });
-    return res.json({ items: result });
+    return res.json({ page: page, items: result });
   });
 });
 

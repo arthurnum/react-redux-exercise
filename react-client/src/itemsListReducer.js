@@ -1,26 +1,36 @@
 import { actionTypes } from './actions';
 
 const defaultState = {
-  list: []
+  list: [],
+  page: 1
 };
 
 let itemsListReducer = function(state, action) {
   switch (action.type) {
     case actionTypes.INITIAL_LOAD:
       return {
-        list: action.data.items
+        list: action.data.items,
+        page: action.data.page
       }
     case actionTypes.ADD_ITEM:
       return {
-        list: addItem(state.list, action.item)
+        list: addItem(state.list, action.item),
+        page: state.page
       }
     case actionTypes.UPDATE_ITEM:
       return {
-        list: updateItem(state.list, action.item)
+        list: updateItem(state.list, action.item),
+        page: state.page
       }
     case actionTypes.DELETE_ITEM:
       return {
-        list: deleteItem(state.list, action.item)
+        list: deleteItem(state.list, action.item),
+        page: state.page
+      }
+    case actionTypes.PAGINATE:
+      return {
+        list: action.data.items,
+        page: action.data.page
       }
     default:
       return defaultState

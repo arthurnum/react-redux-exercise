@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Item from './item';
 import ItemForm from './itemForm';
-import { counter, getItems, addItem, deleteItem } from '../actions';
+import ItemsPagination from './itemsPagination';
+import { counter, getItems, addItem, deleteItem, paginate } from '../actions';
 
 class ItemsList extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ItemsList extends React.Component {
     this.itemClickCallback = this.itemClickCallback.bind(this);
     this.itemDeleteCallback = this.itemDeleteCallback.bind(this);
     this.addItemClickCallback = this.addItemClickCallback.bind(this);
+    this.paginationCallback = this.paginationCallback.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +32,10 @@ class ItemsList extends React.Component {
     this.props.dispatch(addItem(name));
   }
 
+  paginationCallback(step) {
+    this.props.dispatch(paginate(step));
+  }
+
   render() {
     const items = this.props.list.map((item) =>
       <Item key={item.id}
@@ -43,7 +49,8 @@ class ItemsList extends React.Component {
         <ul>
            {items}
         </ul>
-        <ItemForm addItemClickCallback={this.addItemClickCallback}/>
+        <ItemsPagination paginationCallback={this.paginationCallback} />
+        <ItemForm addItemClickCallback={this.addItemClickCallback} />
       </div>
     );
   }

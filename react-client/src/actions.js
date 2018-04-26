@@ -4,11 +4,12 @@ const actionTypes = {
   INITIAL_LOAD: 'initial-load',
   ADD_ITEM: 'add-item',
   UPDATE_ITEM: 'update-item',
-  DELETE_ITEM: 'delete-item'
-}
+  DELETE_ITEM: 'delete-item',
+  PAGINATE: 'paginate'
+};
 
-const getItems = () => dispatch =>
-  api.get('/items')
+const getItems = () => (dispatch, getState) =>
+  api.get('/items?page=' + getState().page)
   .then(res => {
     let action = {
       type: actionTypes.INITIAL_LOAD,
@@ -55,5 +56,17 @@ const counter = id => dispatch =>
     }
   })
 
+const paginate = step => (dispatch, getState) => {
+  let page = getState().page + step;
+  if (page < 1) { page = 1 }
+  api.get('/items?page=' + page)
+  .then(res => {
+    let action = {
+      type: actionTypes.PAGINATE,
+      data: res
+    };
+    return dispatch(action);
+  })
+}
 
-export { actionTypes, counter, getItems, addItem, deleteItem }
+export { actionTypes, counter, getItems, addItem, deleteItem, paginate }
