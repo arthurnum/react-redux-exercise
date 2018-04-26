@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
+const io = require('socket.io');
 const app = express();
 
 const db = require('./db');
@@ -16,6 +17,16 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'react-client/build', 'index.html'));
 });
 
+
+// Websocket
+let socketServer = new io(8081);
+socketServer.on('connection', (socket) => {
+  console.log(socket);
+  socket.on('client-in', function (data) {
+    console.log(data);
+    socket.emit('server-response', 'Hi, client');
+  })
+});
 
 // Items api
 
@@ -36,6 +47,7 @@ app.put('/items', function (req, res) {
   db.item.findById(req.body.id).then(item => {
     item.count += 1;
     item.save().then(item => {
+      socketServer.emit('dataUpdate', JSON.stringify({ status: 0, item: item }));
       res.json({ status: 0, item: item })
     });
   })
