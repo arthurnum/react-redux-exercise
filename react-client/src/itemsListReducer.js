@@ -50,7 +50,7 @@ function updateItem(list, item) {
 
 function deleteItem(list, item) {
   let index = list.findIndex((e, i) => { return e.id === item.id });
-  list.splice(index, 1);
+  if (index >= 0) { list.splice(index, 1); }
   return list.slice();
 }
 

@@ -54,9 +54,9 @@ input {
 }
 
 .header, .footer {
-  height: 100px;
+  height: 200px;
   width: 100%;
-  background-color: #536039;
+  background-color: #006039;
 }
 
 .pagination {

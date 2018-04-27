@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
+import io from 'socket.io-client';
+import registerServiceWorker from './registerServiceWorker';
+import './index.css';
+
 import ItemsList from './components/itemsList';
 import store from './store';
-import io from 'socket.io-client';
 import { actionTypes } from './actions';
 
 ReactDOM.render(
@@ -19,14 +20,40 @@ registerServiceWorker();
 
 const socket = io('ws://localhost:8081');
 
-socket.emit('client-in', 'hi');
-socket.on('dataUpdate', response => {
+socket.on('itemUpdate', response => {
   let res = JSON.parse(response);
   if (res.status === 0) {
     let action = {
       type: actionTypes.UPDATE_ITEM,
       item: res.item
     };
-    return store.dispatch(action);
+    store.dispatch(action);
+  }
+});
+
+socket.on('itemDelete', response => {
+  let res = JSON.parse(response);
+  if (res.status === 0) {
+    let action = {
+      type: actionTypes.DELETE_ITEM,
+      item: res.item
+    };
+    store.dispatch(action);
   }
 })
+
+function dropHandler( ev ) {
+  ev.preventDefault();
+
+  var file = ev.dataTransfer.files[0];
+
+  var reader = new FileReader();
+  reader.onloadend = function() {
+    console.log(this.result);
+    socket.emit('fileUpload', this.result);
+  };
+
+  reader.readAsArrayBuffer(file);
+}
+
+document.getElementsByClassName('footer')[0].ondrop = dropHandler;

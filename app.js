@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const io = require('socket.io');
 const app = express();
+const fs = require('fs');
 
 const db = require('./db');
 
@@ -21,11 +22,17 @@ app.get('/', function (req, res) {
 // Websocket
 let socketServer = new io(8081);
 socketServer.on('connection', (socket) => {
-  console.log(socket);
-  socket.on('client-in', function (data) {
-    console.log(data);
-    socket.emit('server-response', 'Hi, client');
-  })
+
+  socket.on('fileUpload', data => {
+    fs.open('./fileTransfered', 'w', (err, fd) => {
+      console.log(err);
+      console.log(fd);
+      fs.write(fd, data, () => {
+        fs.closeSync(fd);
+      });
+    });
+  });
+
 });
 
 // Items api
@@ -47,8 +54,9 @@ app.put('/items', function (req, res) {
   db.item.findById(req.body.id).then(item => {
     item.count += 1;
     item.save().then(item => {
-      socketServer.emit('dataUpdate', JSON.stringify({ status: 0, item: item }));
-      res.json({ status: 0, item: item })
+      let data = { status: 0, item: item };
+      socketServer.emit('itemUpdate', JSON.stringify(data));
+      res.json(data);
     });
   })
 });
@@ -63,7 +71,9 @@ app.post('/items', function (req, res) {
 app.delete('/items', function (req, res) {
   db.item.findById(req.query.id).then(item => {
     item.destroy().then(() => {
-      res.json({ status: 0, item: item })
+      let data = { status: 0, item: item };
+      socketServer.emit('itemDelete', JSON.stringify(data));
+      res.json(data);
     })
   })
 })
