@@ -25,11 +25,17 @@ socketServer.on('connection', (socket) => {
 
   socket.on('fileUpload', data => {
     fs.open('./fileTransfered', 'w', (err, fd) => {
-      console.log(err);
-      console.log(fd);
-      fs.write(fd, data, () => {
-        fs.closeSync(fd);
-      });
+      if (err) {
+        console.log('File descriptor error:');
+        console.log(err);
+        return;
+      }
+
+      if (fd) {
+        fs.write(fd, data, () => {
+          fs.closeSync(fd);
+        });
+      }
     });
   });
 
